@@ -99,9 +99,9 @@ Now that you’ve gotten familiar with the IM column store let’s look at the b
     <copy>
     connect ssb/Ora_DB4U@localhost:1521/orclpdb
     set timing on
-    select /*+ NOINMEMORY */ max(loordtotalprice) mostexpensiveorder, sum(loquantity) totalitems from LINEORDER;
+    select /*+ NOINMEMORY */ max(lo_ordtotalprice) mostexpensiveorder, sum(lo_quantity) totalitems from LINEORDER;
     set timing off
-    select * from table(dbmsxplan.displaycursor());
+    select * from table(dbms_xplan.display_cursor());
     @../imstats.sql
     </copy>
     ````
@@ -298,9 +298,9 @@ Up until now we have been focused on queries that scan only one table, the LINEO
 
 11.  Create a Join Group
    ````
-     <copy>
-     CREATE INMEMORY JOIN GROUP  JoinGroup (lineorder(lo_orderdate),date_dim (d_datekey)) ;
-     </copy>
+   <copy>
+    CREATE INMEMORY JOIN GROUP  JoinGroup (lineorder(lo_orderdate),date_dim (d_datekey)) ;
+   </copy>
    ````
     This will improve query performance further and reduce CPU cycles to create JOIN FILTERS.
 
