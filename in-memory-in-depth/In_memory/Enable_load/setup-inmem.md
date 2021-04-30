@@ -436,7 +436,8 @@ SSB        EXT_EMP              COMPLETED              3
 
 21. Query In-Memory external table.
 
-Sessions that query In-Memory external tables must have the initialization parameter QUERY_REWRITE_INTEGRITY set to stale_tolerated. It is important to keep in mind that if an external table is modified, then the results from the IM column store are undefined. Results are also undefined if a partition is altered (by dropping or adding values). This may lead to differences in results between IM and non-IM based scans. You can run DBMS_INMEMORY.REPOPULATE to refresh the IM store so that it is resynchronized with the table data.
+Sessions that query In-Memory external tables must have the initialization parameter QUERY\_REWRITE\_INTEGRITY set to stale_tolerated. It is important to keep in mind that if an external table is modified, then the results from the IM column store are undefined. Results are also undefined if a partition is altered (by dropping or adding values). This may lead to differences in results between IM and non-IM based scans. You can run DBMS_INMEMORY.REPOPULATE to refresh the IM store so that it is resynchronized with the table data.
+
 ````
 <copy>
 col plan_table_output format a140
