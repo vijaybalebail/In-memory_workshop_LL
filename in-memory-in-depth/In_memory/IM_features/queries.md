@@ -299,10 +299,11 @@ Up until now we have been focused on queries that scan only one table, the LINEO
 11.  Create a Join Group
    ````
    <copy>
-    CREATE INMEMORY JOIN GROUP  JoinGroup (lineorder(lo_orderdate),date_dim (d_datekey)) ;
+    CREATE INMEMORY JOIN GROUP  JoinGroup (lineorder(lo_orderdate),date_dim (d_datekey));
    </copy>
    ````
-    This will improve query performance further and reduce CPU cycles to create JOIN FILTERS.
+
+  This will improve query performance further and reduce CPU cycles to to join tables.
 
 ## Step 5: In-Memory Expressions
 
@@ -422,10 +423,11 @@ This simple example shows that even relatively simple expressions can be computa
  ````
 
 Since 18c, there are 2 ways to capture the expressions automatically. They are either during a window or current.
-For the window function, we use dbms_inmemory_admin.ime_open_capture_window() to start.
-dbms_inmemory_admin.ime_close_capture_window() to stop capturing the inmemory expression and run
-dbms_inmemory_admin.ime_capture_expressions('WINDOW') to automatically generate automatic In-Memory expressions.
-The other alternative is to run dbms_inmemory_admin.ime_capture_expressions('CURRENT') which will capture the expressions from the shared pool.
+For the window function, we use dbms\_inmemory\_admin.ime\_open\_capture_window() to start.
+dbms\_inmemory\_admin.ime\_close\_capture\_window() to stop capturing the inmemory expression and run
+dbms\_inmemory\_admin.ime\_capture\_expressions('WINDOW') to automatically generate automatic In-Memory expressions.
+The other alternative is to run dbms\_inmemory\_admin.ime\_capture\_expressions('CURRENT') which will capture the expressions from the shared pool.
+
 19. In our example, we will capture the sqls from shared pool using the "CURRENT" expression.
 
   ````
@@ -478,8 +480,8 @@ set autotrace off
 </copy>
 ````
 
-   How to tell if the IM expression has actually been populated? There is another view, V$IM_IMECOL_CU that shows the columns populated and number of IMEUs they occupy.
-   To drop expressions, DBMS_INMEMORY_ADMIN.IME_DROP_ALL_EXPRESSIONS procedure drops all SYS_IME expression virtual columns in the database. The DBMS_INMEMORY.IME_DROP_EXPRESSIONS procedure drops a specified set of SYS_IME virtual columns from a table.
+   How to tell if the IM expression has actually been populated? There is another view, V$IM\_IMECOL\_CU that shows the columns populated and number of IMEUs they occupy.
+   To drop expressions, DBMS\_INMEMORY\_ADMIN.IME\_DROP\_ALL\_EXPRESSIONS procedure drops all SYS\_IME expression virtual columns in the database. The DBMS\_INMEMORY.IME\_DROP\_EXPRESSIONS procedure drops a specified set of SYS\_IME virtual columns from a table.
 
 ## Step 6: In-Memory Optimized Arithmetic
 
