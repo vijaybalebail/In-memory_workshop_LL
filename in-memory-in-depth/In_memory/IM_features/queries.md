@@ -183,6 +183,49 @@ Now that you’ve gotten familiar with the IM column store let’s look at the b
     You can see that the *TABLE ACCESS INMEMORY FULL*  is used even through there is an INDEX on lo_orderkey. In fact, INMEMORY may reduce the need to have multiple indexes on the Database.
     *This not only speeds up analytic query with fewer indexes, but also improve DML and load performance due to fewer indexes.*
 
+## Step 3: In-Memory Hybrid Scans
+An In-Memory hybrid scan accesses a table in the IM column store when not all columns are populated.
+
+![](images/IMHybridscan.png)  
+Before Oracle Database 21c, if a query referenced any column with the NO INMEMORY setting, then the query accessed all data from the row store. Therefore, the table scan could not take advantage of columnar formats, predicate pushdown, and other In-Memory features. Starting in Oracle Database 21c, queries that reference both INMEMORY and NO INMEMORY columns can access columnar data.
+
+In Lab 1, we saw that we can load only required columns of a table to conserver In-Memory pool.
+With Hybrid Scans, we increase the probability of a query running In-Memory even if some of the columns are not In-Memory. This feature enables optimal use of memory resources to boost performance of queries.
+
+7. Alter table to remove a column from In-Memory.
+````
+<copy>
+ ALTER TABLE lineorder  INMEMORY NO INMEMORY (lo_revenue);
+</copy>
+````
+8. verify the In-Memory parameters at column level.
+````
+<copy>
+col table_name format a10
+col column_name format a20
+col inmemory_compression format a20
+SELECT TABLE_NAME, COLUMN_NAME, INMEMORY_COMPRESSION
+FROM V$IM_COLUMN_LEVEL
+WHERE TABLE_NAME = 'BONUS'; </copy>
+````
+9. Rerun the previous query and observe the plan.
+````
+<copy>
+set timing on
+
+select
+lo_orderkey, lo_custkey, lo_revenue
+from LINEORDER where
+lo_custkey = 5641
+and lo_shipmode = 'XXX AIR'
+and lo_orderpriority = '5-LOW';
+
+set timing off
+
+select * from table(dbms_xplan.display_cursor());
+</copy>
+````
+
     ![](images/num6.png)   
 
 
