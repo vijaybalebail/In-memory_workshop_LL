@@ -340,9 +340,9 @@ BONUS      YEAR                 DEFAULT
 
  ![](images/IMHybrid.png)
 
-## Step 4: In-Memory External Tables. (Cloud and  Engineered Systems only)
+## Step 4: In-Memory External Tables.
 In-Memory External Tables builds on the theme of expanding analytic queries to all data, not just Oracle native data. Oracle Database already supports accessing external data with features like External Tables and Big Data SQL to allow fast and secure SQL query on all types of data. In-Memory External Tables allow essentially any type of data to be populated into the IM column store. This means non-native Oracle data can be analyzed with any data in Oracle Database using Oracle SQL and its rich feature set and also get the benefit of using all of the performance enhancing features of Database In-Memory.
-Currently , this feature is licensed for only Oracle Cloud databases and  Engineered Systems. We can still test the feature on EE after setting  "_exadata_feature_on" to true. This feature could eventually release on all EE releases.
+Until 19c , this feature is licensed for only Oracle Cloud databases and  Engineered Systems. We can still test the feature on EE after setting  "_exadata_feature_on" to true. This feature is available in 21c EE releases.
 
  ![](images/IMExternal.png)
 
