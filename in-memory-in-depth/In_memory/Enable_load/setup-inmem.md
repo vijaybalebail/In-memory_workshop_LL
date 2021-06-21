@@ -173,7 +173,7 @@ The Oracle environment is already set up so sqlplus can be invoked directly from
           ALTER TABLE part INMEMORY PRIORITY HIGH;
           ALTER TABLE customer INMEMORY PRIORITY MEDIUM;
           ALTER TABLE supplier INMEMORY PRIORITY LOW;
-          ALTER TABLE date_dim INMEMORY ;
+          ALTER TABLE date_dim INMEMORY;
           </copy>
       ````
 
@@ -251,7 +251,7 @@ The Oracle environment is already set up so sqlplus can be invoked directly from
 
     ````
     <copy>
-    ALTER TABLE bonus NO INMEMORY ;
+    ALTER TABLE bonus NO INMEMORY;
     </copy>
     ````
 
@@ -354,10 +354,10 @@ Until 19c , this feature is licensed for only Oracle Cloud databases and  Engine
  show pdbs
  alter session set container=orclpdb;
  create or replace directory ext_dir as '/home/oracle/labs' ;
- grant read,write on directory ext_dir to ssb;
+ grant read, write on directory ext_dir to ssb;
  connect ssb/Ora_DB4U@localhost:1521/orclpdb   
 
-CREATE TABLE ext_emp  ( ID NUMBER(6), FIRST_NAME VARCHAR2(20),
+CREATE  TABLE ext_emp ( ID NUMBER(6), FIRST_NAME VARCHAR2(20),
      LAST_NAME VARCHAR2(25), EMAIL VARCHAR2(25),
      PHONE_NUMBER VARCHAR2(20), HIRE_DATE DATE,
      JOB_ID VARCHAR2(10), SALARY NUMBER(8,2),
