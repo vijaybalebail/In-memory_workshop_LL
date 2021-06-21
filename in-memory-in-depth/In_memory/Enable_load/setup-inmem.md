@@ -355,9 +355,9 @@ Until 19c , this feature is licensed for only Oracle Cloud databases and  Engine
  alter session set container=orclpdb;
  create or replace directory ext_dir as '/home/oracle/labs' ;
  grant read, write on directory ext_dir to ssb;
- connect ssb/Ora_DB4U@localhost:1521/orclpdb   
+ connect ssb/Ora_DB4U@localhost:1521/orclpdb
 
-CREATE  TABLE ext_emp ( ID NUMBER(6), FIRST_NAME VARCHAR2(20),
+ CREATE--TABLE ext_emp ( ID NUMBER(6), FIRST_NAME VARCHAR2(20),
      LAST_NAME VARCHAR2(25), EMAIL VARCHAR2(25),
      PHONE_NUMBER VARCHAR2(20), HIRE_DATE DATE,
      JOB_ID VARCHAR2(10), SALARY NUMBER(8,2),
