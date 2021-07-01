@@ -538,13 +538,14 @@ SET LONG 50
 SET LINESIZE 150
 
 SELECT OWNER, TABLE_NAME, COLUMN_NAME, SQL_EXPRESSION
-FROM DBA_IM_EXPRESSIONS;<copy>
+FROM DBA_IM_EXPRESSIONS;</copy>
+
 ````
 
 25. Now rerun the query and verify you see "IM scan EU ..." instead on only "IM scan CU ..." statistics.
+
 ````
-<copy>
-set timing on
+<copy>set timing on
 set autotrace traceonly
 SELECT lo_shipmode, SUM(lo_ordtotalprice),
 SUM(lo_ordtotalprice - (lo_ordtotalprice*(lo_discount/100)) + lo_tax) discount_price
