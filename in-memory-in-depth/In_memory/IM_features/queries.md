@@ -5,9 +5,13 @@
 
 ### Lab Preview
 
-Watch a preview video of In-Memory Column Store features.
+Watch a preview videos of In-Memory Column Store features.
 
-[](youtube:eToO3PRIs8k)
+#### Part 1
+[](youtube:P6GZaykqHwI)
+
+#### Part 2
+[](youtube:Du-DNEU_0Y4)
 
 ## Step 1: Querying the In-Memory Column Store
 
@@ -81,7 +85,7 @@ Now that you’ve gotten familiar with the IM column store let’s look at the b
 
     "IM scan CUs memcompress for query low" is the number of IMCUs accessed for each column in the table.
 
-    The above query access 2 columns (lo_ordtotalprice and lo_quantity ) and no where condition. This is indicated by "IM scan CUs columns accessed" = 88. This is because we accessed 2 columns in the query. (2 *44 =88)
+    The above query access 2 columns (lo\_ordtotalprice and lo\_quantity ) and no where condition. This is indicated by "IM scan CUs columns accessed" = 88. This is because we accessed 2 columns in the query. (2 *44 =88)
 
     If the query had a where clause on any other columns, then those CUs would need to accessed  and value of  "IM scan CUs columns accessed" will be a multiple of "IM scan CUs memcompress for query low" and number of distinct columns accessed.
 
