@@ -286,56 +286,57 @@ Up until now we have been focused on queries that scan only one table, the LINEO
 11. Join the LINEORDER and DATE_DIM tables in a "What If" style query that calculates the amount of revenue increase that would have resulted from eliminating certain company-wide discounts in a given percentage range for products shipped on a given day (Christmas eve 1996).  In the first one, execute it against the IM column store.  
 
 ````
-  <copy>
-   set timing on
-   set pages 9999
-   set lines 100
+<copy>
+set timing on
+set pages 9999
+set lines 100
 
-   SELECT SUM(lo_extendedprice * lo_discount) revenue
-   FROM   lineorder l,
-   date_dim d
-   WHERE  l.lo_orderdate = d.d_datekey
-   AND    l.lo_discount BETWEEN 2 AND 3
-   AND    l.lo_quantity < 24
-   AND    d.d_date='December 24, 1996';
+SELECT SUM(lo_extendedprice * lo_discount) revenue
+FROM   lineorder l,
+date_dim d
+WHERE  l.lo_orderdate = d.d_datekey
+AND    l.lo_discount BETWEEN 2 AND 3
+AND    l.lo_quantity < 24
+AND    d.d_date='December 24, 1996';
 
-   set timing off
+set timing off
 
-   select * from table(dbms_xplan.display_cursor());
+select * from table(dbms_xplan.display_cursor());
 
-   @../imstats.sql
-   </copy>
+@../imstats.sql
+</copy>
 ````
 
-   ![](images/num2.png)
+   ![](images/ste4point11-part1.png)
+   ![](images/ste4point11-part2.png)
 
    The IM column store has no problem executing a query with a join because it is able to take advantage of Bloom Filters.  It’s easy to identify Bloom filters in the execution plan. They will appear in two places, at creation time and again when it is applied. The Bloon filter plans start with <b> :BF00X </b> plan above. You can also see what join condition was used to build the Bloom filter by looking at the predicate information under the plan.
 
 12. Let's run against the buffer cache now and observer that it is a lot slower.  
 
-   ````
-   <copy>
-   connect ssb/Ora_DB4U@localhost:1521/orclpdb
-   set timing on
+````
+ <copy>
+ connect ssb/Ora_DB4U@localhost:1521/orclpdb
+ set timing on
 
-   select /*+ NO_INMEMORY */
-   sum(lo_extendedprice * lo_discount) revenue
-   from
-   LINEORDER l,
-   DATE_DIM d
-   where
-   l.lo_orderdate = d.d_datekey
-   and l.lo_discount between 2 and 3
-   and l.lo_quantity < 24
-   and d.d_date='December 24, 1996';
+ select /*+ NO_INMEMORY */
+ sum(lo_extendedprice * lo_discount) revenue
+ from
+ LINEORDER l,
+ DATE_DIM d
+ where
+ l.lo_orderdate = d.d_datekey
+ and l.lo_discount between 2 and 3
+ and l.lo_quantity < 24
+ and d.d_date='December 24, 1996';
 
-   set timing off
+ set timing off
 
-   select * from table(dbms_xplan.display_cursor());
+ select * from table(dbms_xplan.display_cursor());
 
-   @../imstats.sql
-   </copy>
-   ````
+ @../imstats.sql
+ </copy>
+````
 
    ![](images/num3.png)
 
